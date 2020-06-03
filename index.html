@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Installment Calculator</title>
+
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card card-body text-center mt-3">
+                    <h1 class="heading pb-4 mb-2">Installment Calculator</h1>
+                    <form id="input-data">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <svg class="bi bi-credit-card" width="1em" height="1em" viewBox="0 0 16 16"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M14 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z" />
+                                            <rect width="3" height="3" x="2" y="9" rx="1" />
+                                            <path d="M1 5h14v2H1z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <input type="number" step="0.01" class="form-control" placeholder="Loan Amount"
+                                    id="principal">
+                                <div class="invalid-feedback">
+                                    <span>Please enter a valid amount</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                                <input type="number" step="0.01" class="form-control" placeholder="Interest" id="rate">
+                                <div class="invalid-feedback">
+                                    <span>Please enter a valid interest rate</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <svg class="bi bi-calendar-check-fill" width="1em" height="1em"
+                                            viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM0 5h16v9a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5zm10.854 3.854a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <input type="number" step="0.01" class="form-control" placeholder="Years to repay"
+                                    id="year">
+                                <div class="invalid-feedback">
+                                    <span>Please enter a valid year</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Calculate" class="btn btn-dark btn-block">
+                        </div>
+                    </form>
+                    <!-- Loader -->
+                    <div id="loader" class="hide">
+                        <img src="img/Spinner-1.1s-200px.svg" alt="">
+                    </div>
+                    <!-- RESULTS OUTPUT -->
+                    <div id="results" class="alert alert-success hide" role="alert">
+                        <button class="close">
+                            <span>&times;</span>
+                        </button>
+                        <!-- <div class="alert alert-success" role="alert"> -->
+                        <h5 class="alert-heading text-info mb-3">Payment to be made in <span></span> months</h5>
+                        <!-- </div> -->
+                        <hr>
+                        <form>
+                            <div class="form-group">
+                                <label for="payment">Monthly Payment:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">&#x20B9;</span>
+                                    </div>
+                                    <input type="number" step="0.01" class="form-control" id="payment" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Amount to Be paid:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">&#x20B9;</span>
+                                    </div>
+                                    <input type="number" step="0.01" class="form-control" id="amount" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="interest">Interest Paid:</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">&#x20B9;</span>
+                                    </div>
+                                    <input type="number" step="0.01" class="form-control" id="interest" disabled>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+        </script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
