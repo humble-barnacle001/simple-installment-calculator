@@ -81,13 +81,17 @@ function validateOnSubmit(x) {
 
 function Dec0() {
     // console.log(T.value);
-    if (T.value.indexOf('.') == -1) {
-        T.classList.remove('is-invalid');
-        T.classList.add('is-valid');
-        // console.log(T.value);
-    } else {
-        T.classList.add('is-invalid');
-        T.classList.remove('is-valid');
+    if (T.value != '') {
+        if (T.value.indexOf('.') == -1) {
+            T.classList.remove('is-invalid');
+            T.classList.add('is-valid');
+            return true;
+            // console.log(T.value);
+        } else {
+            T.classList.add('is-invalid');
+            T.classList.remove('is-valid');
+            return false;
+        }
     }
 }
 
